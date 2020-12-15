@@ -9,13 +9,16 @@ public class LocomotionTechnique : MonoBehaviour
     public OVRInput.Controller rightController;
     public float forcePower;
     public GameObject hmd;
+    public GameObject leftLaser, leftBeam, leftParticles;
+    public GameObject rightLaser, rightBeam, rightParticles;
     [SerializeField] private float leftTriggerValue;    
     [SerializeField] private float rightTriggerValue;
     [SerializeField] private Vector3 leftPos, rightPos;
     [SerializeField] private Vector3 rightForce, leftForce;
     [SerializeField] private bool isIndexTriggerDown;
     private Rigidbody rb;
-
+    private Quaternion leftControllerRot, rightControllerRot;
+    private Vector3 leftDirection, rightDirection;
 
     /////////////////////////////////////////////////////////
     // These are for the game mechanism.
@@ -24,6 +27,12 @@ public class LocomotionTechnique : MonoBehaviour
     
     void Start()
     {
+        leftLaser.transform.localScale = Vector3.zero;
+        leftBeam.transform.localScale = Vector3.zero;
+        leftParticles.transform.localScale = Vector3.zero;
+        rightLaser.transform.localScale = Vector3.zero;
+        rightBeam.transform.localScale = Vector3.zero;
+        rightParticles.transform.localScale = Vector3.zero;
         rb = this.GetComponent<Rigidbody>();
         forcePower = 0.25f;
     }
@@ -36,7 +45,7 @@ public class LocomotionTechnique : MonoBehaviour
         leftTriggerValue = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, leftController); 
         rightTriggerValue = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, rightController); 
 
-        if (leftTriggerValue > 0.1f && rightTriggerValue > 0.1f)
+        if (leftTriggerValue > 0.01f && rightTriggerValue > 0.01f)
         {
             if (!isIndexTriggerDown)
             {
@@ -44,10 +53,10 @@ public class LocomotionTechnique : MonoBehaviour
                 rightPos = OVRInput.GetLocalControllerPosition(rightController);
                 isIndexTriggerDown = true;
             }
-            Quaternion leftControllerRot = OVRInput.GetLocalControllerRotation(leftController);
-            Quaternion rightControllerRot = OVRInput.GetLocalControllerRotation(rightController);
-            Vector3 leftDirection = -1.0f*(leftControllerRot*Vector3.forward);
-            Vector3 rightDirection = -1.0f*(rightControllerRot*Vector3.forward);
+            leftControllerRot = OVRInput.GetLocalControllerRotation(leftController);
+            rightControllerRot = OVRInput.GetLocalControllerRotation(rightController);
+            leftDirection = -1.0f*(leftControllerRot*Vector3.forward);
+            rightDirection = -1.0f*(rightControllerRot*Vector3.forward);
         
             rightForce = rightTriggerValue*rightDirection ;
             leftForce =  leftTriggerValue*leftDirection;
@@ -57,15 +66,15 @@ public class LocomotionTechnique : MonoBehaviour
 
           //  Debug.DrawRay((leftPos + rightPos)/2, offset, Color.red, 0.2f);
         }
-        else if (leftTriggerValue > 0.1f && rightTriggerValue < 0.1f)
+        else if (leftTriggerValue > 0.01f && rightTriggerValue < 0.01f)
         {
             if (!isIndexTriggerDown)
             {
                 isIndexTriggerDown = true;
                 leftPos = OVRInput.GetLocalControllerPosition(leftController);
             }
-            Quaternion leftControllerRot = OVRInput.GetLocalControllerRotation(leftController);
-            Vector3 leftDirection = -1.0f*(leftControllerRot*Vector3.forward);
+            leftControllerRot = OVRInput.GetLocalControllerRotation(leftController);
+            leftDirection = -1.0f*(leftControllerRot*Vector3.forward);
 
             leftForce = (leftTriggerValue*leftDirection);
 
@@ -73,15 +82,15 @@ public class LocomotionTechnique : MonoBehaviour
 
          //   Debug.DrawRay(leftPos, offset, Color.red, 0.2f);
         }
-        else if (leftTriggerValue < 0.1f && rightTriggerValue > 0.1f)
+        else if (leftTriggerValue < 0.01f && rightTriggerValue > 0.01f)
         {
             if (!isIndexTriggerDown)
             {
                 isIndexTriggerDown = true;
                 rightPos = OVRInput.GetLocalControllerPosition(rightController);
             }
-            Quaternion rightControllerRot = OVRInput.GetLocalControllerRotation(rightController);
-            Vector3 rightDirection = -1.0f*(rightControllerRot*Vector3.forward);
+            rightControllerRot = OVRInput.GetLocalControllerRotation(rightController);
+            rightDirection = -1.0f*(rightControllerRot*Vector3.forward);
 
             rightForce = (rightTriggerValue*rightDirection);
 
@@ -93,13 +102,53 @@ public class LocomotionTechnique : MonoBehaviour
         {
             if (isIndexTriggerDown)
             {
+                leftLaser.transform.localScale = Vector3.zero;
+                leftBeam.transform.localScale = Vector3.zero;
+                leftParticles.transform.localScale = Vector3.zero;
+                rightLaser.transform.localScale = Vector3.zero;
+                rightBeam.transform.localScale = Vector3.zero;
+                rightParticles.transform.localScale = Vector3.zero;
                 isIndexTriggerDown = false;
                 rightForce = Vector3.zero;
                 leftForce = Vector3.zero;
             }
         }
-        
 
+        if (leftTriggerValue> 0.01f && leftTriggerValue <0.20f){
+            leftBeam.transform.localScale = 5*leftTriggerValue*Vector3.one;
+            leftLaser.transform.localScale = Vector3.zero;
+            leftParticles.transform.localScale = Vector3.zero;
+        }
+
+        if (rightTriggerValue> 0.01f && rightTriggerValue <0.20f){
+            rightBeam.transform.localScale = 5*rightTriggerValue*Vector3.one;
+            rightLaser.transform.localScale = Vector3.zero;
+            rightParticles.transform.localScale = Vector3.zero;
+        }
+
+        if (leftTriggerValue>= 0.20f && leftTriggerValue <0.80f){
+            leftBeam.transform.localScale = leftTriggerValue*Vector3.one;
+            leftLaser.transform.localScale = leftTriggerValue*Vector3.one;
+            leftParticles.transform.localScale = Vector3.zero;
+
+        }
+        if (leftTriggerValue>= 0.80f){
+            leftBeam.transform.localScale = Vector3.one;
+            leftLaser.transform.localScale = leftTriggerValue*Vector3.one;
+            leftParticles.transform.localScale = leftTriggerValue*Vector3.one;
+        }
+
+        if (rightTriggerValue>= 0.20f && rightTriggerValue <0.80f){
+            rightBeam.transform.localScale = rightTriggerValue*Vector3.one;
+            rightLaser.transform.localScale = rightTriggerValue*Vector3.one;
+            rightParticles.transform.localScale = Vector3.zero;
+
+        }
+        if (rightTriggerValue>= 0.80f){
+            rightBeam.transform.localScale = Vector3.one;
+            rightLaser.transform.localScale = rightTriggerValue*Vector3.one;
+            rightParticles.transform.localScale = rightTriggerValue*Vector3.one;
+        }
 
         ////////////////////////////////////////////////////////////////////////////////
         // These are for the game mechanism.

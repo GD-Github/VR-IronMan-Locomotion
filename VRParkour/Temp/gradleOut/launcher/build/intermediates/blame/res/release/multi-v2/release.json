@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/home/guillaume/Documents/VR/IGD/VR-locomotion-parkour-main/VRParkour/Temp/gradleOut/launcher/build/intermediates/res/merged/release/values-v28_values-v28.arsc.flat",
+            "outputFile": "/home/guillaume/Documents/VR/IGD/VR-IronMan-Locomotion/VRParkour/Temp/gradleOut/launcher/build/intermediates/res/merged/release/values-v28_values-v28.arsc.flat",
             "map": [
                 {
-                    "source": "/home/guillaume/Documents/VR/IGD/VR-locomotion-parkour-main/VRParkour/Temp/gradleOut/launcher/src/main/res/values-v28/styles.xml",
+                    "source": "/home/guillaume/Documents/VR/IGD/VR-IronMan-Locomotion/VRParkour/Temp/gradleOut/launcher/src/main/res/values-v28/styles.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "0",
@@ -25,44 +25,34 @@
             ]
         },
         {
-            "outputFile": "/home/guillaume/Documents/VR/IGD/VR-locomotion-parkour-main/VRParkour/Temp/gradleOut/launcher/build/intermediates/res/merged/release/values_values.arsc.flat",
+            "outputFile": "/home/guillaume/Documents/VR/IGD/VR-IronMan-Locomotion/VRParkour/Temp/gradleOut/launcher/build/intermediates/res/merged/release/values-v21_values-v21.arsc.flat",
             "map": [
                 {
-                    "source": "/home/guillaume/Documents/VR/IGD/VR-locomotion-parkour-main/VRParkour/Temp/gradleOut/launcher/src/main/res/values/strings.xml",
-                    "from": {
-                        "startLines": "2,3",
-                        "startColumns": "2,2",
-                        "startOffsets": "53,98",
-                        "endColumns": "44,65",
-                        "endOffsets": "95,161"
-                    },
-                    "to": {
-                        "startLines": "3,4",
-                        "startColumns": "4,4",
-                        "startOffsets": "101,148",
-                        "endColumns": "46,67",
-                        "endOffsets": "143,211"
-                    }
-                },
-                {
-                    "source": "/home/guillaume/Documents/VR/IGD/VR-locomotion-parkour-main/VRParkour/Temp/gradleOut/launcher/src/main/res/values/ids.xml",
+                    "source": "/home/guillaume/Documents/VR/IGD/VR-IronMan-Locomotion/VRParkour/Temp/gradleOut/launcher/src/main/res/values-v21/styles.xml",
                     "from": {
                         "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "46",
-                        "endOffsets": "97"
+                        "startColumns": "0",
+                        "startOffsets": "53",
+                        "endLines": "3",
+                        "endColumns": "8",
+                        "endOffsets": "153"
                     },
                     "to": {
                         "startLines": "2",
                         "startColumns": "4",
                         "startOffsets": "55",
-                        "endColumns": "45",
-                        "endOffsets": "96"
+                        "endLines": "3",
+                        "endColumns": "8",
+                        "endOffsets": "154"
                     }
-                },
+                }
+            ]
+        },
+        {
+            "outputFile": "/home/guillaume/Documents/VR/IGD/VR-IronMan-Locomotion/VRParkour/Temp/gradleOut/launcher/build/intermediates/res/merged/release/values_values.arsc.flat",
+            "map": [
                 {
-                    "source": "/home/guillaume/Documents/VR/IGD/VR-locomotion-parkour-main/VRParkour/Temp/gradleOut/launcher/src/main/res/values/styles.xml",
+                    "source": "/home/guillaume/Documents/VR/IGD/VR-IronMan-Locomotion/VRParkour/Temp/gradleOut/launcher/src/main/res/values/styles.xml",
                     "from": {
                         "startLines": "5,2,7",
                         "startColumns": "0,0,0",
@@ -79,29 +69,39 @@
                         "endColumns": "8,8,8",
                         "endOffsets": "311,449,676"
                     }
-                }
-            ]
-        },
-        {
-            "outputFile": "/home/guillaume/Documents/VR/IGD/VR-locomotion-parkour-main/VRParkour/Temp/gradleOut/launcher/build/intermediates/res/merged/release/values-v21_values-v21.arsc.flat",
-            "map": [
+                },
                 {
-                    "source": "/home/guillaume/Documents/VR/IGD/VR-locomotion-parkour-main/VRParkour/Temp/gradleOut/launcher/src/main/res/values-v21/styles.xml",
+                    "source": "/home/guillaume/Documents/VR/IGD/VR-IronMan-Locomotion/VRParkour/Temp/gradleOut/launcher/src/main/res/values/ids.xml",
                     "from": {
                         "startLines": "2",
-                        "startColumns": "0",
-                        "startOffsets": "53",
-                        "endLines": "3",
-                        "endColumns": "8",
-                        "endOffsets": "153"
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "46",
+                        "endOffsets": "97"
                     },
                     "to": {
                         "startLines": "2",
                         "startColumns": "4",
                         "startOffsets": "55",
-                        "endLines": "3",
-                        "endColumns": "8",
-                        "endOffsets": "154"
+                        "endColumns": "45",
+                        "endOffsets": "96"
+                    }
+                },
+                {
+                    "source": "/home/guillaume/Documents/VR/IGD/VR-IronMan-Locomotion/VRParkour/Temp/gradleOut/launcher/src/main/res/values/strings.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "2,2",
+                        "startOffsets": "53,98",
+                        "endColumns": "44,65",
+                        "endOffsets": "95,161"
+                    },
+                    "to": {
+                        "startLines": "3,4",
+                        "startColumns": "4,4",
+                        "startOffsets": "101,148",
+                        "endColumns": "46,67",
+                        "endOffsets": "143,211"
                     }
                 }
             ]
