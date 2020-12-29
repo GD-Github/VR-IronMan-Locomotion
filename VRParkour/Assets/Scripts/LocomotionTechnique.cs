@@ -7,7 +7,7 @@ public class LocomotionTechnique : MonoBehaviour
     // Please implement your locomotion technique in this script. 
     public OVRInput.Controller leftController;
     public OVRInput.Controller rightController;
-    public float forcePower;
+    private float forcePower;
     public GameObject hmd;
     public GameObject leftLaser, leftBeam, leftParticles;
     public GameObject rightLaser, rightBeam, rightParticles;
@@ -17,7 +17,7 @@ public class LocomotionTechnique : MonoBehaviour
     [SerializeField] private Vector3 rightForce, leftForce;
     [SerializeField] private bool isIndexTriggerDown;
     private Rigidbody rb;
-    private Quaternion leftControllerRot, rightControllerRot;
+    private Quaternion leftControllerRot, rightControllerRot, offset, playerRotation;
     private Vector3 leftDirection, rightDirection;
 
     /////////////////////////////////////////////////////////
@@ -34,13 +34,16 @@ public class LocomotionTechnique : MonoBehaviour
         rightBeam.transform.localScale = Vector3.zero;
         rightParticles.transform.localScale = Vector3.zero;
         rb = this.GetComponent<Rigidbody>();
-        forcePower = 0.25f;
+        offset = Quaternion.Euler(60,0,0);
+        forcePower = 0.20f;
     }
 
     void Update()
     {
         ////////////////////////////////////////////////////////////////////////////////////////////////////
         // Please implement your LOCOMOTION TECHNIQUE in this script :D.
+        playerRotation = Quaternion.Euler(0.0f,transform.localEulerAngles.y ,0.0f);
+        rb.MoveRotation(playerRotation);
         transform.localEulerAngles = new Vector3(0.0f,transform.localEulerAngles.y ,0.0f);
         leftTriggerValue = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, leftController); 
         rightTriggerValue = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, rightController); 
@@ -55,14 +58,17 @@ public class LocomotionTechnique : MonoBehaviour
             }
             leftControllerRot = OVRInput.GetLocalControllerRotation(leftController);
             rightControllerRot = OVRInput.GetLocalControllerRotation(rightController);
-            leftDirection = -1.0f*(leftControllerRot*Vector3.forward);
-            rightDirection = -1.0f*(rightControllerRot*Vector3.forward);
+            leftDirection = -1.0f*(leftControllerRot*offset*Vector3.forward).normalized;
+            rightDirection = -1.0f*(rightControllerRot*offset*Vector3.forward).normalized;
         
             rightForce = rightTriggerValue*rightDirection ;
             leftForce =  leftTriggerValue*leftDirection;
 
             rb.AddForce(forcePower*rightForce,ForceMode.Impulse);
             rb.AddForce(forcePower*leftForce,ForceMode.Impulse);
+
+            OVRInput.SetControllerVibration(0.5f +0.5f*leftTriggerValue, leftTriggerValue, leftController);
+            OVRInput.SetControllerVibration(0.5f +0.5f*rightTriggerValue, rightTriggerValue, rightController);
 
           //  Debug.DrawRay((leftPos + rightPos)/2, offset, Color.red, 0.2f);
         }
@@ -74,11 +80,13 @@ public class LocomotionTechnique : MonoBehaviour
                 leftPos = OVRInput.GetLocalControllerPosition(leftController);
             }
             leftControllerRot = OVRInput.GetLocalControllerRotation(leftController);
-            leftDirection = -1.0f*(leftControllerRot*Vector3.forward);
+            leftDirection = -1.0f*(leftControllerRot*offset*Vector3.forward).normalized;
 
             leftForce = (leftTriggerValue*leftDirection);
 
             rb.AddForce(forcePower*leftForce,ForceMode.Impulse);
+
+            OVRInput.SetControllerVibration(0.5f +0.5f*leftTriggerValue, leftTriggerValue, leftController);
 
          //   Debug.DrawRay(leftPos, offset, Color.red, 0.2f);
         }
@@ -90,11 +98,13 @@ public class LocomotionTechnique : MonoBehaviour
                 rightPos = OVRInput.GetLocalControllerPosition(rightController);
             }
             rightControllerRot = OVRInput.GetLocalControllerRotation(rightController);
-            rightDirection = -1.0f*(rightControllerRot*Vector3.forward);
+            rightDirection = -1.0f*(rightControllerRot*offset*Vector3.forward).normalized;
 
             rightForce = (rightTriggerValue*rightDirection);
 
             rb.AddForce(forcePower*rightForce,ForceMode.Impulse);
+            
+            OVRInput.SetControllerVibration(0.5f +0.5f*rightTriggerValue, rightTriggerValue, rightController);
             
           //  Debug.DrawRay(rightPos, offset, Color.red, 0.2f);
         }
@@ -111,6 +121,9 @@ public class LocomotionTechnique : MonoBehaviour
                 isIndexTriggerDown = false;
                 rightForce = Vector3.zero;
                 leftForce = Vector3.zero;
+                OVRInput.SetControllerVibration(0f, 0f, leftController);
+                OVRInput.SetControllerVibration(0f, 0f, rightController);
+                
             }
         }
 

@@ -1,4 +1,0 @@
-#Tue Dec 15 23:32:01 CET 2020
-base.0=/home/guillaume/Documents/VR/IGD/VR-IronMan-Locomotion/VRParkour/Temp/gradleOut/launcher/build/intermediates/transforms/dexMerger/release/0
-path.0=classes.dex
-renamed.0=classes.dex

@@ -6,22 +6,30 @@ public class speedEffectController : MonoBehaviour
 {
     public GameObject player;
     private Rigidbody rigidbody;
+    private float count;
     ParticleSystem particleSystem;
     // Start is called before the first frame update
     void Start()
     {
+        var em = particleSystem.emission;
         particleSystem = GetComponent<ParticleSystem>();
-        var main = particleSystem.main;
-        main.startSpeed = 0.0f;
         rigidbody = player.GetComponent<Rigidbody>();
+        em.enabled = false;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if ((rigidbody.velocity).magnitude > 2.0f){
-            var main = particleSystem.main;
-            main.startSpeed = 3.0f;
+        var em = particleSystem.emission;
+        if ((rigidbody.velocity).magnitude > 4.0f){
+           em.enabled = true;
+           Vector3 vel = rigidbody.velocity.normalized;
+           this.transform.localPosition = player.transform.localPosition + 1f*vel;
+           this.transform.LookAt(player.transform.localPosition);
         } 
+        else {
+            em.enabled = false;
+        }
     }
 }
