@@ -7,6 +7,7 @@ public class LocomotionTechnique : MonoBehaviour
     // Please implement your locomotion technique in this script. 
     public OVRInput.Controller leftController;
     public OVRInput.Controller rightController;
+    public AudioSource leftAudio, rightAudio;
     private float forcePower;
     public GameObject hmd;
     public GameObject leftLaser, leftBeam, leftParticles;
@@ -70,6 +71,9 @@ public class LocomotionTechnique : MonoBehaviour
             OVRInput.SetControllerVibration(0.5f +0.5f*leftTriggerValue, leftTriggerValue, leftController);
             OVRInput.SetControllerVibration(0.5f +0.5f*rightTriggerValue, rightTriggerValue, rightController);
 
+            rightAudio.volume = 0.2f + 0.6f*rightTriggerValue;
+            leftAudio.volume = 0.2f + 0.6f*leftTriggerValue;
+
           //  Debug.DrawRay((leftPos + rightPos)/2, offset, Color.red, 0.2f);
         }
         else if (leftTriggerValue > 0.01f && rightTriggerValue < 0.01f)
@@ -88,6 +92,8 @@ public class LocomotionTechnique : MonoBehaviour
 
             OVRInput.SetControllerVibration(0.5f +0.5f*leftTriggerValue, leftTriggerValue, leftController);
 
+            leftAudio.volume = 0.2f + 0.6f*leftTriggerValue;
+
          //   Debug.DrawRay(leftPos, offset, Color.red, 0.2f);
         }
         else if (leftTriggerValue < 0.01f && rightTriggerValue > 0.01f)
@@ -105,6 +111,8 @@ public class LocomotionTechnique : MonoBehaviour
             rb.AddForce(forcePower*rightForce,ForceMode.Impulse);
             
             OVRInput.SetControllerVibration(0.5f +0.5f*rightTriggerValue, rightTriggerValue, rightController);
+
+            rightAudio.volume = 0.2f + 0.6f*rightTriggerValue;
             
           //  Debug.DrawRay(rightPos, offset, Color.red, 0.2f);
         }
@@ -123,7 +131,8 @@ public class LocomotionTechnique : MonoBehaviour
                 leftForce = Vector3.zero;
                 OVRInput.SetControllerVibration(0f, 0f, leftController);
                 OVRInput.SetControllerVibration(0f, 0f, rightController);
-                
+                rightAudio.volume = 0.2f;
+                leftAudio.volume = 0.2f;
             }
         }
 
